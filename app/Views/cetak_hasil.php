@@ -28,13 +28,18 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>nama</th>
-                <th>posisi</th>
-                <th>lokasi</th>
-                <th>batas lamaran</th>
-                <th>syarat</th>
-                <th>kontak</th>
-                <th>jenis pekerjaan</th>
+                <th>Nama Guru</th>
+                <th>Kerajinan Guru</th>
+                <th>Silabus</th>
+                <th>Modul</th>
+                <th>CV</th>
+                <th>ATP</th>
+                <th>Prota</th>
+                <th>Media Belajar</th>
+                <th>Kekreatifan</th>
+                <th>Keterangan</th>
+                <th>Materi</th>
+                <th>Detail</th>
             </tr>
         </thead>
         <tbody>
@@ -42,13 +47,17 @@
                 <?php foreach ($formulir as $key => $row): ?>
                     <tr>
                         <td><?= $key + 1 ?></td>
-                        <td><?= $row->nama ?></td>
-                        <td><?= $row->posisi ?></td>
-                        <td><?= $row->lokasi ?></td>
-                        <td><?= $row->batas_lamaran ?></td>
-                        <td><?= $row->syarat ?></td>
-                        <td><?= $row->contact ?></td>
-                        <td><?= $row->jenis_pekerjaan ?></td>
+                        <td><?= $row->nama_guru ?></td>
+                        <td><?= $row->kerajinan_guru ?></td>
+                        <td><?= $row->silabus ?></td>
+                        <td><?= $row->modul ?></td>
+                        <td><?= $row->cv ?></td>
+                        <td><?= $row->atp ?></td>
+                        <td><?= $row->prota ?></td>
+                        <td><?= $row->media_pembelajaran ?></td>
+                        <td><?= $row->kreatif ?></td>
+                        <td><?= $row->keterangan ?></td>
+                        <td><?= $row->sesuai_materi ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

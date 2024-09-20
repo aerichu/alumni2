@@ -6,15 +6,8 @@ use CodeIgniter\Model;
 class M_burger extends Model
 {
 
-    protected $table = 'loker'; // Nama tabel akan ditentukan berdasarkan metode yang digunakan
-    protected $primaryKey = 'id_loker'; // Sesuaikan dengan primary key yang digunakan
-
-    protected $allowedFields = [
-        'nama', 'posisi', 'lokasi', 'deskripsi', 'batas_lamaran', 
-        'contact', 'syarat', 'jenis_pekerjaan', 'nama_depan', 
-        'nama_belakang', 'nomor', 'email', 'id_user', 'id_loker'
-    ];
-
+    protected $table;
+    
 public function join($tabel, $tabel2, $on, $id){
     return $this->db->table($tabel)
                     ->join($tabel2,$on,'left')
@@ -22,6 +15,86 @@ public function join($tabel, $tabel2, $on, $id){
                     ->get()
                     ->getResult();
         }
+public function tampilWhere($table, $where)
+    {
+        return $this->db->table($table)
+                        ->where($where)
+                        ->get()
+                        ->getResultArray(); // Get as an array of results
+    }
+
+public function query1($query)
+{
+    // Jalankan query
+    $result = $this->db->query($query);
+
+    // Jika query gagal, tangani error
+    if (!$result) {
+        // Debugging: tampilkan error dari database
+        $error = $this->db->error();
+        die('Query Error: ' . $error['message']); // atau bisa diganti dengan logging jika tidak ingin mematikan aplikasi
+    }
+
+    // Jika query berhasil, kembalikan hasil
+    return $result->getResult();
+}
+
+public function getGuruMapel()
+    {
+        return $this->db->table('guru_mapel')
+            ->select('guru_mapel.id_guru_mapel, guru_mapel.nama_mapel, user.username as nama_guru')
+            ->join('user', 'guru_mapel.id_user_guru = user.id_user')
+            ->get()->getResultArray();
+    }
+
+public function getAllBloks()
+{
+    return $this->db->table('blok')->get()->getResultArray();
+}
+public function getKelas()
+{
+    return $this->db->table('kelas')->get()->getResultArray();
+}
+
+public function getAllKelas()
+{
+    return $this->db->table('kelas')->get()->getResultArray();
+}
+
+public function getKelasByBlok($blokId)
+{
+    $model = new M_burger();
+    $kelas = $model->getKelasByBlok($blokId); // Fetch classes based on blok ID
+    return $this->response->setJSON($kelas); // Return classes as JSON response
+}
+
+public function getAllGurus()
+{
+    return $this->db->table('user')->where('level', 'guru')->get()->getResultArray();
+}
+
+public function saveMapel($data)
+{
+    // Insert the mapel and assigned teacher into the guru_mapel table
+    return $this->db->table('guru_mapel')->insert($data);
+}
+
+
+public function tampilform($table)
+{
+    return $this->db->table($table)->get()->getResultArray();
+}
+
+
+public function updatejwbn($table, $id_guru_mapel, $data)
+{
+    return $this->db->table($table)
+                    ->where('id_guru_mapel', $id_guru_mapel)
+                    ->update($data);
+}
+
+
+
 
 
 
@@ -122,23 +195,31 @@ public function tampil_join3($table1,$tabel2,$tabel3,$on)
     $this->db->table('transaksi')->insert($data);
 }
 
-public function jointigawhere($tabel, $tabel2, $tabel3, $on, $on2, $id, $where){
-     return $this->db->table($tabel)
-                    ->join($tabel2, $on,'left')
-                    ->join($tabel3, $on2,'left')
-                    ->orderby($id,'desc')
-                    ->getWhere($where)
-                    ->getResult();
+public function jointigawhere($table1, $table2, $table3, $on1, $on2, $select, $where)
+{
+    $builder = $this->db->table($table1);
+    $builder->select($select);
+    $builder->join($table2, $on1);
+    $builder->join($table3, $on2);
+    $builder->where($where);
 
+    $query = $builder->get();
+
+    // Check if the query was successful
+    if ($query !== false) {
+        if ($query->getNumRows() > 0) {
+            return $query->getResult(); // Return results as array of objects
+        } else {
+            return []; // Return empty array if no results found
+        }
+    } else {
+        // Log the query error (optional) and return an empty array
+        // log_message('error', 'Query failed: ' . $this->db->getLastQuery());
+        return [];
+    }
 }
-// public function joinduawhere($tabel, $tabel2, $on, $id, $where){
-//      return $this->db->table($tabel)
-//                     ->join($tabel2, $on,'left')
-//                     ->orderby($id,'desc')
-//                     ->getWhere($where)
-//                     ->getResult();
 
-// }
+
 public function joinTwoTables($tabel2, $on, $where1)
     {
         $query = $this->db->table($this->table)
@@ -153,6 +234,17 @@ public function joinTwoTables($tabel2, $on, $where1)
         }
 
         return $query->getResult();
+    }
+public function joinFourTables($table1, $table2, $table3, $on1, $on2, $on3, $where = [])
+    {
+        // Perform the join of 4 tables
+        return $this->db->table($this->table)
+                        ->join($table1, $on1, 'left')
+                        ->join($table2, $on2, 'left')
+                        ->join($table3, $on3, 'left')
+                        ->where($where)
+                        ->get()
+                        ->getResult();
     }
 
 
@@ -348,18 +440,18 @@ public function tampilgambar($table)
 
 public function getLaporanByDate($start_date, $end_date)
 {
-    return $this->db->table('loker')
-    ->where('batas_lamaran >=', $start_date)
-    ->where('batas_lamaran <=', $end_date)
+    return $this->db->table('supervisi')
+    ->where('created_at >=', $start_date)
+    ->where('created_at <=', $end_date)
     ->get()
     ->getResult();
 }
 
 public function getLaporanByDateForExcel($start_date, $end_date)
 {
-    $query = $this->db->table('loker')
-    ->where('batas_lamaran >=', $start_date)
-    ->where('batas_lamaran <=', $end_date)
+    $query = $this->db->table('supervisi')
+    ->where('created_at >=', $start_date)
+    ->where('created_at <=', $end_date)
     ->get();
 
     return $query->getResultArray();

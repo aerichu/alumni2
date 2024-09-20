@@ -14,6 +14,7 @@
                 </div>
               </a>
             </li>
+            
            
             <li class="nav-item nav-logout d-none d-lg-block">
               <a class="nav-link" href="http://localhost:8080/home/logout">
@@ -46,24 +47,33 @@
                 <i class="mdi mdi-view-dashboard menu-icon"></i>
               </a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/home/loker">
-                <span class="menu-title">Lowongan Kerja</span>
-                <i class="mdi mdi-briefcase menu-icon"></i>
-              </a>
-            </li>
             <?php
-        if(session()->get('level')=='admin' || session()->get('level')=='user' || session()->get('level')=='super-admin'){
+        if(session()->get('level')=='admin'){
           ?>
             <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/home/form">
-                <span class="menu-title">Form</span>
+              <a class="nav-link" href="http://localhost:8080/home/blok">
+                <span class="menu-title">Jadwal</span>
                 <i class="mdi mdi-file-document menu-icon"></i>
               </a>
             </li>
-                        <?php } ?>
-         <?php
+        <?php } ?>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/home/form">
+                <span class="menu-title">Penilaian</span>
+                <i class="mdi mdi-file-document menu-icon"></i>
+              </a>
+            </li>
+            <?php
+        if(session()->get('level')=='admin' || session()->get('level')=='wakil_kurikulum'){
+          ?>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/home/supervisi">
+                <span class="menu-title">Supervisi</span>
+                <i class="mdi mdi-file-document menu-icon"></i>
+              </a>
+            </li>
+        <?php } ?>
+        <?php
         if(session()->get('level')=='admin'){
           ?>
          <li class="nav-item">
@@ -72,6 +82,7 @@
                 <i class="mdi mdi-history menu-icon"></i>
               </a>
             </li>
+        
           <li class="nav-item">
               <a class="nav-link" href="http://localhost:8080/home/user">
                 <span class="menu-title">Data User</span>
@@ -85,24 +96,20 @@
                 <i class="mdi mdi-briefcase menu-icon"></i>
               </a>
             </li>
+           <!--  <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/home/setting">
+                <span class="menu-title">Setting</span>
+                <i class="mdi mdi-briefcase menu-icon"></i>
+              </a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="http://localhost:8080/home/laporan">
                 <span class="menu-title">Print</span>
                 <i class="mdi mdi-briefcase menu-icon"></i>
               </a>
             </li>
-          
             <?php } ?>
-            <?php
-        if(session()->get('level')=='admin' || session()->get('level')=='kesiswaan'){
-          ?>
-            <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/home/alumni">
-                <span class="menu-title">Data Alumni</span>
-                <i class="mdi mdi-school menu-icon"></i>
-              </a>
-            </li>
-            <?php } ?>
+
             </li>
           </ul>
         </nav>

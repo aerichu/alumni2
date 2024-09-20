@@ -20,31 +20,31 @@
                                             placeholder="Your name" name="nama">
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="yourUsername" class="form-label">Jenis kelamin</label>
-                                        <select class="form-control" name="jk">
-                                            <option value="cowo">cowo</option>
-                                            <option value="cewe">cewe</option>
-                                        </select>
+                                        <label for="yourUsername" class="form-label">Email</label>
+                                        <input type="text" class="form-control form-control-user" id="" placeholder="Password" name="email">
                                     </div>
                                 </div>
+                                
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="yourUsername" class="form-label">Password</label>
                                         <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="pass">
                                     </div>
                                 </div>
-                                <div class="col-sm-20 mb-3 mb-sm-0">
-                                    <label for="yourUsername" class="form-label">Level</label>
-                                    <select class="form-control" name="level">
-                                        <option value="user">user</option>
+
+                                
+                                <div class="form-group">
+                            <label for="edit-level">Level</label>
+                            <select class="form-control" name="level" id="edit-level">
                                         <option value="admin">admin</option>
-                                        <option value="kesiswaan">kesiswaan</option>
-                                        <option value="bkk">bkk</option>
-                                        <option value="super-admin">super admin</option>
-                                    </select>
-                                </div>
+                                        <option value="siswa">siswa</option>
+                                        <option value="guru">guru</option>
+                                        <option value="wakil-kurikulum">wakil kurikulum</option>
+                            </select>
+                        </div>
                                 <button class="tn login-form__btn submit w-100b btn btn-primary">Add now!</button>
                             </form>
                             <hr>

@@ -39,7 +39,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Level</th>
-                                <th scope="col">Gender</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -51,7 +51,7 @@
                                         <td><?= $no++ ?></td>
                                         <td><?= $kin->username ?></td>
                                         <td><?= $kin->level ?></td>
-                                        <td><?= $kin->jk ?></td>
+                                        <td><?= $kin->email ?></td>
                                         <td><?= $kin->pw ?></td>
                                         <td>
                                             <button class="btn btn-sm btn-primary btn-sm-rounded editBtn" 
@@ -60,7 +60,7 @@
                                             data-id="<?= $kin->id_user ?>" 
                                             data-username="<?= $kin->username ?>" 
                                             data-level="<?= $kin->level ?>" 
-                                            data-jk="<?= $kin->jk ?>" 
+                                            data-email="<?= $kin->email ?>" 
                                             data-pw="<?= $kin->pw ?>">
                                             <i class="fa fa-edit"></i>
                                         </button>
@@ -98,19 +98,15 @@
                         <div class="form-group">
                             <label for="edit-level">Level</label>
                             <select class="form-control" name="level" id="edit-level">
-                                <option value="user">user</option>
                                         <option value="admin">admin</option>
-                                        <option value="kesiswaan">kesiswaan</option>
-                                        <option value="bkk">bkk</option>
-                                        <option value="super-admin">super admin</option>
+                                        <option value="siswa">siswa</option>
+                                        <option value="guru">guru</option>
+                                        <option value="wakil-kurikulum">wakil kurikulum</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="edit-jk">Gender</label>
-                            <select class="form-control" name="jk" id="edit-jk">
-                                <option value="cowo">cowo</option>
-                                <option value="cewe">cewe</option>
-                            </select>
+                            <label for="edit-pw">Email</label>
+                            <input type="text" class="form-control" id="edit-pw" name="email" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-pw">Password</label>
@@ -138,13 +134,13 @@
                 var id = $(this).data('id');
                 var username = $(this).data('username');
                 var level = $(this).data('level');
-                var jk = $(this).data('jk');
+                var email = $(this).data('email');
                 var pw = $(this).data('pw');
 
                 $('#edit-id').val(id);
                 $('#edit-username').val(username);
                 $('#edit-level').val(level);
-                $('#edit-jk').val(jk);
+                $('#edit-email').val(email);
                 $('#edit-pw').val(pw);
             });
 

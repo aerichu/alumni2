@@ -54,33 +54,48 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="table-responsive">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                        <h6 class="m-0 font-weight-bold text-primary">Restore</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="job-card-container">
-                            <?php $no = 1; foreach ($jel as $kin) { ?>
-                                <div class="job-card-item">
-                                    <div class="job-card p-3 border rounded shadow-sm" data-toggle="modal" data-target="#detailModal" data-nama="<?= $kin->nama ?>" data-posisi="<?= $kin->posisi ?>" data-deskripsi="<?= $kin->deskripsi ?>" data-id-loker="<?= $kin->id_loker ?>">
-                                        <h5 class="text-uppercase-bold-blue mb-2"><?= $kin->posisi ?></h5>
-                                        <p class="mb-1"><strong>Nama Perusahaan:</strong> <?= $kin->nama ?></p>
-                                        <p class="mb-1"><strong>Lokasi:</strong> <?= $kin->lokasi ?></p>
-                                        <p class="mb-1"><strong>Deskripsi:</strong> <?= $kin->deskripsi ?></p>
-                                        <p class="mb-1"><strong>Batas Lamaran:</strong> <?= $kin->batas_lamaran ?></p>
-                                        <p class="mb-1"><strong>Kontak:</strong> <?= $kin->contact ?></p>
-                                        <p class="mb-1"><strong>Syarat:</strong> <?= $kin->syarat ?></p>
-                                        <p class="mb-1"><strong>Jenis Pekerjaan:</strong> <?= $kin->jenis_pekerjaan ?></p>
-                                        <?php if (session()->get('level') == 'admin') { ?>
-                                          <a href="<?= base_url('home/aksi_restore/' . $kin->id_loker) ?>" class="btn btn-danger btn-sm mt-2">
-                                            <i class="fas fa-trash"></i> Restore
-                                        </a>
-                                    <?php } ?>
-                                </div>
-                            </div>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Guru</th>
+                            <th>Kerajinan Guru</th>
+                            <th>Silabus</th>
+                            <th>Modul</th>
+                            <th>CV</th>
+                            <th>ATP</th>
+                            <th>Prota</th>
+                            <th>Media Belajar</th>
+                            <th>Kekreatifan</th>
+                            <th>Keterangan</th>
+                            <th>Materi</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1; foreach ($jel as $kin) { ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $kin->nama_guru ?></td>
+                                <td><?= $kin->kerajinan_guru ?></td>
+                                <td><?= $kin->silabus ?></td>
+                                <td><?= $kin->modul ?></td>
+                                <td><?= $kin->cv ?></td>
+                                <td><?= $kin->atp ?></td>
+                                <td><?= $kin->prota ?></td>
+                                <td><?= $kin->media_pembelajaran ?></td>
+                                <td><?= $kin->kreatif ?></td>
+                                <td><?= $kin->keterangan ?></td>
+                                <td><?= $kin->sesuai_materi ?></td>
+                                <td>
+                                    <a href="<?= base_url('home/aksi_restore/' . $kin->id_supervisi) ?>" class="btn btn-warning btn-sm rounded-circle">
+                                        <i class="fa fa-redo"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         <?php } ?>
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
